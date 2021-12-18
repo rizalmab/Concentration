@@ -1,0 +1,33 @@
+h1 {
+  margin: 0 auto;
+}
+
+img {
+  height: 300px;
+  width: 300px;
+}
+
+/* show #screen1 when app first starts */
+#start-screen {
+  display: block;
+}
+
+/* hide other screens when app first starts */
+#rules-screen,
+#game-screen,
+#input-screen {
+  display: none;
+}
+
+/* can add custom CSS for each specific screen */
+#start-screen {
+}
+
+#rules-screen {
+}
+
+#game-screen {
+}
+
+#input-screen {
+}

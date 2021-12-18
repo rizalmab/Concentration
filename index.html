@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script src="app.js"></script>
+    <title>Concentration game</title>
+  </head>
+  <body>
+    <h1>Concentration</h1>
+    <div id="start-screen" class="screen">
+      <img
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzVHNU5qz-XpFQ8uEv2FvIBTSaxJ9rw_P9IURuTIKAEZ2rFpE&s"
+        alt="picture of poker cards"
+      />
+      <div id="button-container">
+        <button id="start-button">Start game</button><br />
+        <button id="rules-button">Rules</button>
+      </div>
+    </div>
+    <div id="input-screen" class="screen">
+      <h3>Input your name</h3>
+      <input id="input-name" placeholder="Type your name here" /><br />
+      <button id="go-button">Go!</button>
+    </div>
+    <div id="rules-screen" class="screen">
+      <div id="rules-container">
+        <h3>Rules of the game</h3>
+        <p id="rules">Insert rules here</p>
+        <button id="rules-back-button">Back</button>
+      </div>
+    </div>
+    <div id="game-screen" class="screen">
+      <h1>Welcome to the game</h1>
+    </div>
+  </body>
+</html>

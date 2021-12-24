@@ -4,27 +4,27 @@
 /*----- event listeners -----*/
 /*----- functions -----*/
 
-const showStartScreen = () => {
-  $(".screen").hide();
-  $("#start-screen").show();
-};
-
-const showInputScreen = () => {
-  $(".screen").hide();
-  $("#input-screen").show();
-};
-
-const showRulesScreen = () => {
-  $(".screen").hide();
-  $("#rules-screen").show();
-};
-
-const showGameScreen = () => {
-  $(".screen").hide();
-  $("#game-screen").show();
-};
-
 const main = () => {
+  const showStartScreen = () => {
+    $(".screen").hide();
+    $("#start-screen").show();
+  };
+
+  const showInputScreen = () => {
+    $(".screen").hide();
+    $("#input-screen").show();
+  };
+
+  const showRulesScreen = () => {
+    $(".screen").hide();
+    $("#rules-screen").show();
+  };
+
+  const showGameScreen = () => {
+    $(".screen").hide();
+    $("#game-screen").show();
+  };
+
   //When click 'start game' button
   $("#start-button").on("click", showInputScreen);
 

@@ -1,3 +1,9 @@
+/*----- constants -----*/
+/*----- app's state (variables) -----*/
+/*----- cached element references -----*/
+/*----- event listeners -----*/
+/*----- functions -----*/
+
 const showStartScreen = () => {
   $(".screen").hide();
   $("#start-screen").show();

@@ -8,13 +8,13 @@ img {
 }
 
 /* show #screen1 when app first starts */
-#start-screen {
+#game-screen {
   display: block;
 }
 
 /* hide other screens when app first starts */
 #rules-screen,
-#game-screen,
+#start-screen,
 #input-screen {
   display: none;
 }
@@ -31,3 +31,12 @@ img {
 
 #input-screen {
 }
+
+/* To test the div location */
+/* .previous-card {
+  background-color: blue;
+}
+
+.current-card {
+  background-color: red;
+} */

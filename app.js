@@ -52,6 +52,7 @@ const main = () => {
   // on click, do function: check conditions for correct snap, change variables (cards)
   $("#snap-button").on("click", checkConditions);
 
+  // $("h1").innerText("hello");
   // RENDER FUNCTION
   // things to render:
   // previous card

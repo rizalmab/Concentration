@@ -6,7 +6,29 @@ class Card {
   }
 }
 
+const VALUES = [
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+  "J",
+  "Q",
+  "K",
+  "A",
+];
+const SUITS = ["♠", "♥", "♦", "♣"];
+
 /*----- app's state (variables) -----*/
+let playerCount, computerCount, discardCount;
+let playerDeck, computerDeck;
+let previousCard, currentCard, nextCard;
+let turn = 0;
+
 /*----- cached element references -----*/
 
 /*----- functions -----*/
@@ -18,13 +40,12 @@ const createDeck = () => {
       deck.push(card);
     }
   }
-  console.log(deck);
-  console.log("no of cards", deck.length);
+  return deck;
 };
 
 const shuffleDeck = (array) => {
-  let currentIndex = array.length,
-    randomIndex;
+  let currentIndex = array.length;
+  let randomIndex;
 
   // While there remain elements to shuffle...
   while (currentIndex != 0) {
@@ -44,26 +65,50 @@ const shuffleDeck = (array) => {
 
 /*----- event listeners -----*/
 
-// create deck arrays
-// needs to be a list of objects
-
-const VALUES = [
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9",
-  "10",
-  "J",
-  "Q",
-  "K",
-  "A",
-];
-const SUITS = ["♠", "♥", "♦", "♣"];
-
 const deck = createDeck();
 const shuffledDeck = shuffleDeck(deck);
-console.log(shuffledDeck);
+
+//* Start of game
+//split deck into 2
+playerDeck = shuffledDeck.slice(0, Math.floor(deck.length / 2));
+computerDeck = shuffledDeck.slice(Math.floor(deck.length / 2), deck.length);
+// console.log(playerDeck, playerDeck.length); // to check what cards and no. of cards in deck
+// console.log(computerDeck, computerDeck.length); // to check what cards and no. of cards in deck
+
+// Update counts of cards in 3 decks
+playerCount = 0;
+computerCount = 0;
+discardCount = 0;
+
+// Player put downs card first
+// At each turn (while loop), player and computer take turns putting down card
+
+while (playerDeck.length > 0 && computerDeck.length > 0) {
+  turn++;
+
+  if (turn === 1) {
+    currentCard = playerDeck.pop();
+  } else {
+    if (turn % 2 !== 0) {
+      // on odd turns
+      previousCard = currentCard;
+      currentCard = playerDeck.pop();
+    } else {
+      // on even turns
+      previousCard = currentCard;
+      currentCard = computerDeck.pop();
+    }
+  }
+
+  console.log("Turn", turn); // check turn number
+  console.log("prev", previousCard, "current", currentCard); // check previous and current card
+  console.log(
+    // check remaining deck length
+    "player length",
+    playerDeck.length,
+    "computer length",
+    computerDeck.length
+  );
+}
+
+// Every 2 seconds, a card is put down

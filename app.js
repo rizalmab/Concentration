@@ -24,17 +24,20 @@ const VALUES = [
 const SUITS = ["♠", "♥", "♦", "♣"];
 
 /*----- app's state (variables) -----*/
-let playerCount, computerCount, discardCount;
+// Decks
 let playerDeck, computerDeck;
+const discardDeck = [];
+
+// Current and previous cards
 let previousCard, currentCard;
+
+// Card counts
+let playerCount, computerCount, discardCount;
+
 let turn = 0;
+let myInterval;
 
 /*----- cached element references -----*/
-const $startButton = $("#start-button");
-const rulesButton = $("#rules-button");
-const rulesBackButton = $("#rules-back-button");
-const goButton = $("#go-button");
-const snapButton = $("#snap-button");
 
 /*----- functions -----*/
 const createDeck = () => {
@@ -68,11 +71,74 @@ const shuffleDeck = (array) => {
   return array;
 };
 
-const printHello = () => {
-  console.log("hello");
+const startGame = () => {
+  // create deck of 52 cards
+  const deck = createDeck();
+
+  // shuffle deck of 52 cards
+  const shuffledDeck = shuffleDeck(deck);
+
+  // slice deck of 52 cards in half
+  playerDeck = shuffledDeck.slice(0, Math.floor(deck.length / 2));
+  computerDeck = shuffledDeck.slice(Math.floor(deck.length / 2), deck.length);
+
+  // Update global variables with values
+  playerCount = playerDeck.length;
+  computerCount = computerDeck.length;
+  discardCount = discardDeck.length;
+
+  //! Call playTurn function. Player puts first card into discard pile, followed by computer
+  // playTurn();
+  console.log(playerDeck, computerDeck, discardDeck);
+  playTurn();
+  playTurn();
+  playTurn();
+  playTurn();
+  playTurn();
+  playTurn();
+
+  // if (!myInterval) {
+  //   myInterval = setInterval(playTurn, 2000);
+  // }
 };
 
-// const myInterval = setInterval(printHello, 1000);
+const playTurn = () => {
+  // while (playerCount > 0 && computerCount > 0) {
+  turn++;
+
+  if (turn === 1) {
+    // for the first turn only
+    currentCard = playerDeck.pop();
+  } else {
+    if (turn % 2 !== 0) {
+      // on odd turns
+      discardDeck.push(previousCard);
+      previousCard = currentCard;
+      currentCard = playerDeck.pop();
+    } else {
+      // on even turns
+      discardDeck.push(previousCard);
+      previousCard = currentCard;
+      currentCard = computerDeck.pop();
+    }
+  }
+  console.log("Turn", turn); // check turn number
+  console.log("prev", previousCard, "current", currentCard); // check previous and current card
+  console.log(
+    // check remaining deck length
+    "player length",
+    playerCount,
+    "computer length",
+    computerCount,
+    "discard length",
+    discardCount
+  );
+};
+
+const pauseGame = () => {
+  clearInterval(myInterval);
+  myInterval = null;
+};
 
 const checkConditions = () => {
   // code block - make simple condition
@@ -81,6 +147,7 @@ const checkConditions = () => {
 };
 
 const main = () => {
+  /*----- event listeners -----*/
   $("#start-button").on("click", () => {
     $(".screen").hide();
     $("#input-screen").show();
@@ -100,9 +167,12 @@ const main = () => {
   $("#snap-button").on("click", () => {
     clearInterval(myInterval);
   });
-};
+  $(".start-game-button").on("click", startGame);
+  // perhaps, there should be a resume game button in addition
+  $(".pause-game-button").on("click", pauseGame);
 
-/*----- event listeners -----*/
+  startGame();
+};
 
 // $("h1").innerText("hello");
 // RENDER FUNCTION

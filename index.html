@@ -40,18 +40,22 @@
     <div id="game-screen" class="screen">
       <h1>Welcome to the game</h1>
       <div>
-        <div>Computer's cards: <span>26</span></div>
-        <div class="previous-card">
+        <div class="count">Computer's cards: <span>26</span></div>
+        <div class="previous-card-container">
           <div>Previous card:</div>
           <div class="previous-card card">Jack of hearts</div>
         </div>
-        <div class="current-card">
+        <div class="current-card-container">
           <div>Current card:</div>
           <div class="current-card card">Jack of spade</div>
         </div>
-        <div>Discard pile: <span>0</span></div>
-        <button id="snap-button" class="button">SNAP</button>
-        <div>Player's cards: <span>26</span></div>
+        <div class="count">Discard pile: <span>0</span></div>
+        <div class="buttons-container">
+          <button class="snap-button button">SNAP</button> <br />
+          <button class="start-game-button button">Start game</button>
+          <button class="pause-game-button button">Pause game</button>
+        </div>
+        <div class="count">Player's cards: <span>26</span></div>
       </div>
     </div>
   </body>

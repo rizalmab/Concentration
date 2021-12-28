@@ -26,7 +26,7 @@ const SUITS = ["♠", "♥", "♦", "♣"];
 /*----- app's state (variables) -----*/
 let playerCount, computerCount, discardCount;
 let playerDeck, computerDeck;
-let previousCard, currentCard, nextCard;
+let previousCard, currentCard;
 let turn = 0;
 
 /*----- cached element references -----*/
@@ -83,32 +83,35 @@ discardCount = 0;
 // Player put downs card first
 // At each turn (while loop), player and computer take turns putting down card
 
-while (playerDeck.length > 0 && computerDeck.length > 0) {
-  turn++;
+const startGame = () => {
+  while (playerDeck.length > 0 && computerDeck.length > 0) {
+    turn++;
 
-  if (turn === 1) {
-    currentCard = playerDeck.pop();
-  } else {
-    if (turn % 2 !== 0) {
-      // on odd turns
-      previousCard = currentCard;
+    if (turn === 1) {
+      // for the first turn only
       currentCard = playerDeck.pop();
     } else {
-      // on even turns
-      previousCard = currentCard;
-      currentCard = computerDeck.pop();
+      if (turn % 2 !== 0) {
+        // on odd turns
+        previousCard = currentCard;
+        currentCard = playerDeck.pop();
+      } else {
+        // on even turns
+        previousCard = currentCard;
+        currentCard = computerDeck.pop();
+      }
     }
-  }
 
-  console.log("Turn", turn); // check turn number
-  console.log("prev", previousCard, "current", currentCard); // check previous and current card
-  console.log(
-    // check remaining deck length
-    "player length",
-    playerDeck.length,
-    "computer length",
-    computerDeck.length
-  );
-}
+    console.log("Turn", turn); // check turn number
+    console.log("prev", previousCard, "current", currentCard); // check previous and current card
+    console.log(
+      // check remaining deck length
+      "player length",
+      playerDeck.length,
+      "computer length",
+      computerDeck.length
+    );
+  }
+};
 
 // Every 2 seconds, a card is put down

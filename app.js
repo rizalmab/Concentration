@@ -32,7 +32,8 @@ const discardDeck = [];
 let previousCard, currentCard;
 
 // Card counts
-let playerCount, computerCount, discardCount;
+//* Don't use card count variables but instead use length property of decks
+// let playerCount, computerCount, discardCount;
 
 let turn = 0;
 let myInterval;
@@ -82,15 +83,9 @@ const startGame = () => {
   playerDeck = shuffledDeck.slice(0, Math.floor(deck.length / 2));
   computerDeck = shuffledDeck.slice(Math.floor(deck.length / 2), deck.length);
 
-  // Update global variables with values
-  playerCount = playerDeck.length;
-  computerCount = computerDeck.length;
-  discardCount = discardDeck.length;
-
   //! Call playTurn function. Player puts first card into discard pile, followed by computer
   // playTurn();
-  console.log(playerDeck, computerDeck, discardDeck);
-  playTurn();
+  // console.log(playerDeck, computerDeck, discardDeck);
   playTurn();
   playTurn();
   playTurn();
@@ -112,12 +107,16 @@ const playTurn = () => {
   } else {
     if (turn % 2 !== 0) {
       // on odd turns
-      discardDeck.push(previousCard);
+      if (typeof previousCard !== "undefined") {
+        discardDeck.push(previousCard);
+      } // to avoid pushing undefined previous card during the second turn into the discardDeck
       previousCard = currentCard;
       currentCard = playerDeck.pop();
     } else {
       // on even turns
-      discardDeck.push(previousCard);
+      if (typeof previousCard !== "undefined") {
+        discardDeck.push(previousCard);
+      } // to avoid pushing undefined previous card during the second turn into the discardDeck
       previousCard = currentCard;
       currentCard = computerDeck.pop();
     }
@@ -127,11 +126,11 @@ const playTurn = () => {
   console.log(
     // check remaining deck length
     "player length",
-    playerCount,
+    playerDeck.length,
     "computer length",
-    computerCount,
+    computerDeck.length,
     "discard length",
-    discardCount
+    discardDeck.length
   );
 };
 
@@ -172,6 +171,16 @@ const main = () => {
   $(".pause-game-button").on("click", pauseGame);
 
   startGame();
+  console.log(playerDeck, computerDeck, discardDeck);
+  // console.log(
+  //   // check remaining deck length
+  //   "player length",
+  //   playerDeck.length,
+  //   "computer length",
+  //   computerDeck.length,
+  //   "discard length",
+  //   discardDeck.length
+  // )
 };
 
 // $("h1").innerText("hello");

@@ -48,4 +48,4 @@ const printHello = () => {
 };
 
 const myInterval = setInterval(printHello, 1000);
-clearInterval(myInterval);
+clearInterval(playTurnInterval);

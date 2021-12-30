@@ -36,7 +36,7 @@ let previousCard, currentCard;
 // let playerCount, computerCount, discardCount;
 
 let turn = 0;
-let myInterval;
+let playTurnInterval;
 
 /*----- cached element references -----*/
 
@@ -79,22 +79,14 @@ const startGame = () => {
   // shuffle deck of 52 cards
   const shuffledDeck = shuffleDeck(deck);
 
-  // slice deck of 52 cards in half
+  // slice deck of 52 cards in 2 halves
   playerDeck = shuffledDeck.slice(0, Math.floor(deck.length / 2));
   computerDeck = shuffledDeck.slice(Math.floor(deck.length / 2), deck.length);
 
-  //! Call playTurn function. Player puts first card into discard pile, followed by computer
-  // playTurn();
-  // console.log(playerDeck, computerDeck, discardDeck);
-  playTurn();
-  playTurn();
-  playTurn();
-  playTurn();
-  playTurn();
-
-  // if (!myInterval) {
-  //   myInterval = setInterval(playTurn, 2000);
-  // }
+  // call playTurn function every 2 seconds
+  if (!playTurnInterval) {
+    playTurnInterval = setInterval(playTurn, 2000);
+  }
 };
 
 const playTurn = () => {
@@ -135,8 +127,8 @@ const playTurn = () => {
 };
 
 const pauseGame = () => {
-  clearInterval(myInterval);
-  myInterval = null;
+  clearInterval(playTurnInterval);
+  playTurnInterval = null;
 };
 
 const checkConditions = () => {
@@ -164,14 +156,14 @@ const main = () => {
     $("#game-screen").show();
   });
   $("#snap-button").on("click", () => {
-    clearInterval(myInterval);
+    clearInterval(playTurnInterval);
   });
   $(".start-game-button").on("click", startGame);
   // perhaps, there should be a resume game button in addition
   $(".pause-game-button").on("click", pauseGame);
 
-  startGame();
-  console.log(playerDeck, computerDeck, discardDeck);
+  // startGame();
+  // console.log(playerDeck, computerDeck, discardDeck);
   // console.log(
   //   // check remaining deck length
   //   "player length",

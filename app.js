@@ -26,7 +26,7 @@ const SUITS = ["♠", "♥", "♦", "♣"];
 /*----- app's state (variables) -----*/
 // Decks
 let playerDeck, computerDeck;
-const discardDeck = [];
+let discardDeck = [];
 
 // Current and previous cards
 let previousCard, currentCard;
@@ -36,6 +36,7 @@ let previousCard, currentCard;
 // let playerCount, computerCount, discardCount;
 
 let turn = 0;
+let turnResult;
 let playTurnInterval;
 
 /*----- cached element references -----*/
@@ -85,7 +86,7 @@ const startGame = () => {
 
   // call playTurn function every 2 seconds
   if (!playTurnInterval) {
-    playTurnInterval = setInterval(playTurn, 2000);
+    playTurnInterval = setInterval(playTurn, 1000);
   }
 };
 
@@ -132,9 +133,59 @@ const pauseGame = () => {
 };
 
 const checkConditions = () => {
-  // code block - make simple condition
-  // if prev card === current card (ie. value is the same)
-  console.log("SNAP button clicked");
+  // console.log("check conditions ran");
+
+  // stops function from returning error during first turn as previous card is undefined
+  if (typeof previousCard === "undefined") {
+    return;
+  }
+  // check if condition is met
+  // if (previousCard.value === currentCard.value) {
+  //   console.log("condition met");
+  // } else {
+  //   console.log("condition NOT met");
+  // }
+  if (previousCard.value === currentCard.value) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+const showResult = () => {
+  // console.log("showResult function ran");
+  // if (previousCard.value === currentCard.value) {
+
+  // to stop function from being called during first turn when previousCard is undefined
+  if (typeof previousCard === "undefined") {
+    return;
+  }
+  // print message based on conditions
+  if (checkConditions()) {
+    turnResult = "Player snapped correctly! :)";
+    console.log(turnResult);
+  } else {
+    turnResult = "Player snapped wrongly... :(";
+    console.log(turnResult);
+  }
+  //* Call render function
+};
+
+const clearDiscardDeck = () => {
+  console.log("clearDiscardDeck function called");
+  // push all cards in discardDeck into loser's deck
+  playerDeck.push(...discardDeck);
+
+  // clear discardDeck array back to zero elements
+  discardDeck = [];
+
+  console.log(playerDeck, discardDeck);
+};
+
+const postSnap = () => {
+  // console.log("snap pressed");
+  showResult();
+  clearDiscardDeck();
 };
 
 const main = () => {
@@ -155,9 +206,7 @@ const main = () => {
     $(".screen").hide();
     $("#game-screen").show();
   });
-  $("#snap-button").on("click", () => {
-    clearInterval(playTurnInterval);
-  });
+  $(".snap-button").on("click", postSnap);
   $(".start-game-button").on("click", startGame);
   // perhaps, there should be a resume game button in addition
   $(".pause-game-button").on("click", pauseGame);

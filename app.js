@@ -31,27 +31,37 @@ let discardDeck = [];
 // Current and previous cards
 let previousCard, currentCard;
 
-// Card counts
-//* Don't use card count variables but instead use length property of decks
-// let playerCount, computerCount, discardCount;
-
 let turn = 0;
 let turnResult;
 let playTurnInterval;
 
+const game = {
+  turn: null, // whose turn is it
+  winner: null, // who is the winner
+  snap: null, // who snapped?
+};
+
+const player1 = {
+  name: "Player 1",
+  snapStatus: false,
+  turnWinStatus: false,
+  overallWinStatus: false,
+  turn: false,
+  deck: null,
+};
+
+const computer1 = {
+  name: "Computer",
+  snapStatus: false,
+  turnWinStatus: false,
+  overallWinStatus: false,
+  turn: false,
+  deck: null,
+};
+
 /*----- cached element references -----*/
 
 /*----- functions -----*/
-const createDeck = () => {
-  const deck = [];
-  for (const suit of SUITS) {
-    for (const value of VALUES) {
-      const card = new Card(value, suit);
-      deck.push(card);
-    }
-  }
-  return deck;
-};
 
 const shuffleDeck = (array) => {
   let currentIndex = array.length;
@@ -73,7 +83,19 @@ const shuffleDeck = (array) => {
   return array;
 };
 
-const startGame = () => {
+const setupDecks = () => {
+  // define createDeck function
+  const createDeck = () => {
+    const deck = [];
+    for (const suit of SUITS) {
+      for (const value of VALUES) {
+        const card = new Card(value, suit);
+        deck.push(card);
+      }
+    }
+    return deck;
+  };
+
   // create deck of 52 cards
   const deck = createDeck();
 
@@ -83,7 +105,16 @@ const startGame = () => {
   // slice deck of 52 cards in 2 halves
   playerDeck = shuffledDeck.slice(0, Math.floor(deck.length / 2));
   computerDeck = shuffledDeck.slice(Math.floor(deck.length / 2), deck.length);
+};
 
+const startGame = () => {
+  // function to run during first move of whole game
+  setupDecks();
+  playGame();
+};
+
+const playGame = () => {
+  // function to be called during game, besides first turn
   // call playTurn function every 2 seconds
   if (!playTurnInterval) {
     playTurnInterval = setInterval(playTurn, 1000);
@@ -114,6 +145,18 @@ const playTurn = () => {
       currentCard = computerDeck.pop();
     }
   }
+
+  // give % chance for computer to snap (ie. run postSnap function)
+  if (checkConditions()) {
+    // console.log("conditions are met");
+
+    // computer will snap in 0.9 seconds (ie. run postSnap function)
+    setTimeout(postSnap, 900);
+  } else {
+    // computer will not snap
+    // console.log("conditions not met");
+  }
+
   console.log("Turn", turn); // check turn number
   console.log("prev", previousCard, "current", currentCard); // check previous and current card
   console.log(
@@ -156,7 +199,7 @@ const showResult = () => {
   // console.log("showResult function ran");
   // if (previousCard.value === currentCard.value) {
 
-  // to stop function from being called during first turn when previousCard is undefined
+  // to stop function from returning error during first turn when previousCard is undefined
   if (typeof previousCard === "undefined") {
     return;
   }
@@ -171,21 +214,24 @@ const showResult = () => {
   //* Call render function
 };
 
-const clearDiscardDeck = () => {
-  console.log("clearDiscardDeck function called");
+const addDiscardDeckTo = (deck) => {
+  // console.log("clearDiscardDeck function called");
+
   // push all cards in discardDeck into loser's deck
-  playerDeck.push(...discardDeck);
+  deck.push(...discardDeck);
 
   // clear discardDeck array back to zero elements
   discardDeck = [];
 
-  console.log(playerDeck, discardDeck);
+  console.log(deck, discardDeck);
 };
 
 const postSnap = () => {
   // console.log("snap pressed");
-  showResult();
-  clearDiscardDeck();
+  showResult(); // show whether player/com snapped correctly
+  addDiscardDeckTo(playerDeck); // add discardDeck to the loser's hand
+  shuffleDeck(playerDeck); // shuffle the loser's deck
+  setTimeout(playGame(), 5000); // resume the game
 };
 
 const main = () => {

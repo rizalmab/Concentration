@@ -151,7 +151,7 @@ const playTurn = () => {
     // console.log("conditions are met");
 
     // computer will snap in 0.9 seconds (ie. run postSnap function)
-    setTimeout(postSnap, 900);
+    setTimeout(postSnap(playerDeck), 900);
   } else {
     // computer will not snap
     // console.log("conditions not met");
@@ -226,11 +226,12 @@ const addDiscardDeckTo = (deck) => {
   console.log(deck, discardDeck);
 };
 
-const postSnap = () => {
+const postSnap = (whoseDeck) => {
   // console.log("snap pressed");
+  //! Need to edit showResult, addDiscardDeckTo, shuffleDeck
   showResult(); // show whether player/com snapped correctly
-  addDiscardDeckTo(playerDeck); // add discardDeck to the loser's hand
-  shuffleDeck(playerDeck); // shuffle the loser's deck
+  addDiscardDeckTo(whoseDeck); // add discardDeck to the loser's hand
+  shuffleDeck(whoseDeck); // shuffle the loser's deck
   setTimeout(playGame(), 5000); // resume the game
 };
 

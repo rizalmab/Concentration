@@ -27,6 +27,9 @@ img {
   background-color: rgba(165, 42, 42, 0.44);
 }
 
+.turn-result-message {
+  color: green;
+}
 /* can add custom CSS for each specific screen */
 /* #start-screen {
 }

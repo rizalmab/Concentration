@@ -60,6 +60,8 @@ const computer1 = {
 };
 
 /*----- cached element references -----*/
+let turnResultDisappearDelay = 1500;
+const playTurnTime = 2000;
 
 /*----- functions -----*/
 
@@ -117,7 +119,7 @@ const playGame = () => {
   // function to be called during game, besides first turn
   // call playTurn function every 2 seconds
   if (!playTurnInterval) {
-    playTurnInterval = setInterval(playTurn, 1000);
+    playTurnInterval = setInterval(playTurn, playTurnTime);
   }
 };
 
@@ -297,7 +299,13 @@ const render = () => {
   $(".player-count").text(playerDeck.length);
   // discardPileCount
   $(".discard-count").text(discardDeck.length);
-  // correct or wrong snap
+  // turnResult - correct or wrong snap
+  const clearDisplay = () => {
+    $(".turn-result-message").text("");
+  };
+
+  $(".turn-result-message").text(turnResult);
+  setTimeout(clearDisplay, turnResultDisappearDelay);
 };
 
 $(main);

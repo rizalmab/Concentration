@@ -62,6 +62,7 @@ const computer1 = {
 /*----- cached element references -----*/
 let turnResultDisappearDelay = 1500;
 const playTurnTime = 2000;
+const resumeGameTime = 2000;
 
 /*----- functions -----*/
 
@@ -234,15 +235,24 @@ const postSnapCom = () => {
   updateTurnResult("Computer"); // show whether player/com snapped correctly
   addDiscardDeckTo(playerDeck); // add discardDeck to the loser's hand
   shuffleDeck(playerDeck); // shuffle the loser's deck
-  setTimeout(playGame(), 5000); // resume the game
+  setTimeout(playGame, resumeGameTime); // resume the game after a period of time
 };
 
 const postSnapPlayer = () => {
   // console.log("snap pressed");
   updateTurnResult("Player"); // show whether player/com snapped correctly
-  addDiscardDeckTo(computerDeck); // add discardDeck to the loser's hand
-  shuffleDeck(computerDeck); // shuffle the loser's deck
-  setTimeout(playGame(), 5000); // resume the game
+
+  // based on whether snap was correct or not, add discard deck to user's deck
+  if (checkConditions()) {
+    // if player snapped correctly
+    addDiscardDeckTo(computerDeck);
+    shuffleDeck(computerDeck);
+  } else {
+    // if player snapped wrongly
+    addDiscardDeckTo(playerDeck);
+    shuffleDeck(playerDeck);
+  }
+  setTimeout(playGame(), resumeGameTime); // resume the game after some time
 };
 
 const main = () => {
@@ -283,8 +293,6 @@ const main = () => {
 };
 
 const render = () => {
-  // RENDER FUNCTION
-  // things to render:
   // previous card
   if (turn !== 1) {
     // to avoid error as previousCard is undefined in turn 1
@@ -292,10 +300,13 @@ const render = () => {
   }
   // current card
   $(".current-card").text(currentCard.value);
+
   // computerCardCount
   $(".computer-count").text(computerDeck.length);
+
   // playerCardCount
   $(".player-count").text(playerDeck.length);
+
   // discardPileCount
   $(".discard-count").text(discardDeck.length);
 
@@ -304,7 +315,6 @@ const render = () => {
     $(".turn-result-message").text(""); // clear the turnResult HTML (front-end)
     turnResult = ""; // clear the turnResult variable back to "" (back-end)
   };
-
   $(".turn-result-message").text(turnResult); // display the turnResult immediately
   setTimeout(clearTurnResult, turnResultDisappearDelay); // clear the turnResult message after some delay;
 };

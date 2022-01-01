@@ -116,8 +116,10 @@ const setupDecks = () => {
 };
 
 const startGame = () => {
-  // function to run during first move of whole game
-  setupDecks();
+  if (turn === 0) {
+    // only before the game starts (ie. turn 0), call setupDecks
+    setupDecks();
+  }
   playGame();
 };
 
@@ -296,6 +298,8 @@ const render = () => {
     computerDeck.length,
     "discard length",
     discardDeck.length,
+    "total cards in-game",
+    playerDeck.length + computerDeck.length + discardDeck.length + 2,
     "turn result",
     turnResult
   );

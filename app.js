@@ -151,7 +151,7 @@ const playTurn = () => {
     // console.log("conditions are met");
 
     // computer will snap in 0.9 seconds (ie. run postSnap function)
-    setTimeout(postSnap(playerDeck), 900);
+    setTimeout(postSnapCom(), 900);
   } else {
     // computer will not snap
     // console.log("conditions not met");
@@ -195,7 +195,7 @@ const checkConditions = () => {
   }
 };
 
-const showResult = () => {
+const showResult = (user) => {
   // console.log("showResult function ran");
   // if (previousCard.value === currentCard.value) {
 
@@ -205,10 +205,10 @@ const showResult = () => {
   }
   // print message based on conditions
   if (checkConditions()) {
-    turnResult = "Player snapped correctly! :)";
+    turnResult = `${user} snapped correctly! :)`;
     console.log(turnResult);
   } else {
-    turnResult = "Player snapped wrongly... :(";
+    turnResult = `${user} snapped wrongly... :(`;
     console.log(turnResult);
   }
   //* Call render function
@@ -223,15 +223,22 @@ const addDiscardDeckTo = (deck) => {
   // clear discardDeck array back to zero elements
   discardDeck = [];
 
-  console.log(deck, discardDeck);
+  console.log("loser's deck", deck, discardDeck);
 };
 
-const postSnap = (whoseDeck) => {
+const postSnapCom = () => {
   // console.log("snap pressed");
-  //! Need to edit showResult, addDiscardDeckTo, shuffleDeck
-  showResult(); // show whether player/com snapped correctly
-  addDiscardDeckTo(whoseDeck); // add discardDeck to the loser's hand
-  shuffleDeck(whoseDeck); // shuffle the loser's deck
+  showResult("Computer"); // show whether player/com snapped correctly
+  addDiscardDeckTo(playerDeck); // add discardDeck to the loser's hand
+  shuffleDeck(playerDeck); // shuffle the loser's deck
+  setTimeout(playGame(), 5000); // resume the game
+};
+
+const postSnapPlayer = () => {
+  // console.log("snap pressed");
+  showResult("Player"); // show whether player/com snapped correctly
+  addDiscardDeckTo(computerDeck); // add discardDeck to the loser's hand
+  shuffleDeck(computerDeck); // shuffle the loser's deck
   setTimeout(playGame(), 5000); // resume the game
 };
 
@@ -253,7 +260,7 @@ const main = () => {
     $(".screen").hide();
     $("#game-screen").show();
   });
-  $(".snap-button").on("click", postSnap);
+  $(".snap-button").on("click", postSnapPlayer);
   $(".start-game-button").on("click", startGame);
   // perhaps, there should be a resume game button in addition
   $(".pause-game-button").on("click", pauseGame);

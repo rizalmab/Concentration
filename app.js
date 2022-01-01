@@ -199,7 +199,7 @@ const checkConditions = () => {
   }
 };
 
-const showResult = (user) => {
+const updateTurnResult = (user) => {
   // console.log("showResult function ran");
   // if (previousCard.value === currentCard.value) {
 
@@ -215,7 +215,6 @@ const showResult = (user) => {
     turnResult = `${user} snapped wrongly... :(`;
     console.log(turnResult);
   }
-  //* Call render function
 };
 
 const addDiscardDeckTo = (deck) => {
@@ -232,7 +231,7 @@ const addDiscardDeckTo = (deck) => {
 
 const postSnapCom = () => {
   // console.log("snap pressed");
-  showResult("Computer"); // show whether player/com snapped correctly
+  updateTurnResult("Computer"); // show whether player/com snapped correctly
   addDiscardDeckTo(playerDeck); // add discardDeck to the loser's hand
   shuffleDeck(playerDeck); // shuffle the loser's deck
   setTimeout(playGame(), 5000); // resume the game
@@ -240,7 +239,7 @@ const postSnapCom = () => {
 
 const postSnapPlayer = () => {
   // console.log("snap pressed");
-  showResult("Player"); // show whether player/com snapped correctly
+  updateTurnResult("Player"); // show whether player/com snapped correctly
   addDiscardDeckTo(computerDeck); // add discardDeck to the loser's hand
   shuffleDeck(computerDeck); // shuffle the loser's deck
   setTimeout(playGame(), 5000); // resume the game
@@ -299,13 +298,15 @@ const render = () => {
   $(".player-count").text(playerDeck.length);
   // discardPileCount
   $(".discard-count").text(discardDeck.length);
+
   // turnResult - correct or wrong snap
-  const clearDisplay = () => {
-    $(".turn-result-message").text("");
+  const clearTurnResult = () => {
+    $(".turn-result-message").text(""); // clear the turnResult HTML (front-end)
+    turnResult = ""; // clear the turnResult variable back to "" (back-end)
   };
 
-  $(".turn-result-message").text(turnResult);
-  setTimeout(clearDisplay, turnResultDisappearDelay);
+  $(".turn-result-message").text(turnResult); // display the turnResult immediately
+  setTimeout(clearTurnResult, turnResultDisappearDelay); // clear the turnResult message after some delay;
 };
 
 $(main);

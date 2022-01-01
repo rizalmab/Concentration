@@ -168,6 +168,8 @@ const playTurn = () => {
     "discard length",
     discardDeck.length
   );
+
+  render();
 };
 
 const pauseGame = () => {
@@ -266,6 +268,7 @@ const main = () => {
   $(".pause-game-button").on("click", pauseGame);
 
   // startGame();
+
   // console.log(playerDeck, computerDeck, discardDeck);
   // console.log(
   //   // check remaining deck length
@@ -275,17 +278,26 @@ const main = () => {
   //   computerDeck.length,
   //   "discard length",
   //   discardDeck.length
-  // )
+  //
 };
 
-// $("h1").innerText("hello");
-// RENDER FUNCTION
-// things to render:
-// previous card
-// current card
-// computerCardCount
-// playerCardCount
-// discardPileCount
-// correct or wrong snap
+const render = () => {
+  // RENDER FUNCTION
+  // things to render:
+  // previous card
+  if (turn !== 1) {
+    // to avoid error as previousCard is undefined in turn 1
+    $(".previous-card").text(previousCard.value);
+  }
+  // current card
+  $(".current-card").text(currentCard.value);
+  // computerCardCount
+  $(".computer-count").text(computerDeck.length);
+  // playerCardCount
+  $(".player-count").text(playerDeck.length);
+  // discardPileCount
+  $(".discard-count").text(discardDeck.length);
+  // correct or wrong snap
+};
 
 $(main);

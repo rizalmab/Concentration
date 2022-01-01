@@ -233,8 +233,17 @@ const addDiscardDeckTo = (deck) => {
 const postSnapCom = () => {
   // console.log("snap pressed");
   updateTurnResult("Computer"); // show whether player/com snapped correctly
-  addDiscardDeckTo(playerDeck); // add discardDeck to the loser's hand
-  shuffleDeck(playerDeck); // shuffle the loser's deck
+
+  // based on whether snap was correct or not, add discard deck to user's deck
+  if (checkConditions()) {
+    // if computer snapped correctly
+    addDiscardDeckTo(playerDeck);
+    shuffleDeck(playerDeck);
+  } else {
+    // if computer snapped wrongly
+    addDiscardDeckTo(computerDeck);
+    shuffleDeck(computerDeck);
+
   setTimeout(playGame, resumeGameTime); // resume the game after a period of time
 };
 

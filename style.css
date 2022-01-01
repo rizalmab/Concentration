@@ -1,5 +1,6 @@
 h1 {
   margin: 0 auto;
+  text-align: center;
 }
 
 img {
@@ -23,12 +24,32 @@ img {
   background-color: rgb(128, 128, 128);
 }
 
-.count {
+.card-container {
   background-color: rgba(165, 42, 42, 0.44);
+  display: inline-block;
+  height: 100px;
+  width: 100px;
+  margin: 0 auto;
 }
 
 .turn-result-message {
   color: green;
+}
+
+.container {
+  text-align: center;
+}
+
+.computer-deck {
+  background-color: lightblue;
+}
+
+.player-deck {
+  background-color: lightcoral;
+}
+
+.discard-deck {
+  background-color: lightslategray;
 }
 /* can add custom CSS for each specific screen */
 /* #start-screen {

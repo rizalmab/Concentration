@@ -24,6 +24,7 @@ const VALUES = [
 const SUITS = ["♠", "♥", "♦", "♣"];
 
 /*----- app's state (variables) -----*/
+
 // Decks
 let playerDeck, computerDeck;
 let discardDeck = [];
@@ -31,6 +32,13 @@ let discardDeck = [];
 // Current and previous cards
 let previousCard, currentCard;
 
+// time-related variables
+const turnResultDisappearDelay = 1000; // used in render function
+const playTurnTime = 1500; // used in playGame function
+const resumeGameTime = 2000; // used in postSnapCom and postSnapPlayer functions
+const computerSnapTime = 1200; // used in playTurn
+
+// other variables
 let turn = 0;
 let turnResult;
 let playTurnInterval;
@@ -60,9 +68,6 @@ const computer1 = {
 };
 
 /*----- cached element references -----*/
-let turnResultDisappearDelay = 1500;
-const playTurnTime = 2000;
-const resumeGameTime = 2000;
 
 /*----- functions -----*/
 
@@ -154,23 +159,11 @@ const playTurn = () => {
     // console.log("conditions are met");
 
     // computer will snap in 0.9 seconds (ie. run postSnap function)
-    setTimeout(postSnapCom(), 900);
+    setTimeout(postSnapCom(), computerSnapTime);
   } else {
     // computer will not snap
     // console.log("conditions not met");
   }
-
-  console.log("Turn", turn); // check turn number
-  console.log("prev", previousCard, "current", currentCard); // check previous and current card
-  console.log(
-    // check remaining deck length
-    "player length",
-    playerDeck.length,
-    "computer length",
-    computerDeck.length,
-    "discard length",
-    discardDeck.length
-  );
 
   render();
 };
@@ -211,11 +204,12 @@ const updateTurnResult = (user) => {
   // print message based on conditions
   if (checkConditions()) {
     turnResult = `${user} snapped correctly! :)`;
-    console.log(turnResult);
+    // console.log(turnResult);
   } else {
     turnResult = `${user} snapped wrongly... :(`;
-    console.log(turnResult);
+    // console.log(turnResult);
   }
+  return turnResult;
 };
 
 const addDiscardDeckTo = (deck) => {
@@ -244,7 +238,8 @@ const postSnapCom = () => {
     addDiscardDeckTo(computerDeck);
     shuffleDeck(computerDeck);
 
-  setTimeout(playGame, resumeGameTime); // resume the game after a period of time
+    setTimeout(playGame, resumeGameTime); // resume the game after a period of time
+  }
 };
 
 const postSnapPlayer = () => {
@@ -262,6 +257,48 @@ const postSnapPlayer = () => {
     shuffleDeck(playerDeck);
   }
   setTimeout(playGame(), resumeGameTime); // resume the game after some time
+};
+
+const render = () => {
+  // previous card
+  if (turn !== 1) {
+    // to avoid error as previousCard is undefined in turn 1
+    $(".previous-card").text(previousCard.value);
+  }
+  // current card
+  $(".current-card").text(currentCard.value);
+
+  // computerCardCount
+  $(".computer-count").text(computerDeck.length);
+
+  // playerCardCount
+  $(".player-count").text(playerDeck.length);
+
+  // discardPileCount
+  $(".discard-count").text(discardDeck.length);
+
+  // turnResult message (ie. who snapped and whether they snapped correctly or wrongly)
+  const clearTurnResult = () => {
+    $(".turn-result-message").text(""); // clear the turnResult innerHTML (front-end)
+    turnResult = ""; // clear the turnResult variable back to "" (back-end)
+  };
+  $(".turn-result-message").text(turnResult); // display the turnResult (global) immediately
+  setTimeout(clearTurnResult, turnResultDisappearDelay); // clear the turnResult message after some delay;
+
+  // To check turn number, previousCard, currentCard, length of different decks, turnResult
+  console.log("Turn", turn); // check turn number
+  console.log("prev", previousCard, "current", currentCard); // check previous and current card
+  console.log(
+    // check remaining deck length
+    "player length",
+    playerDeck.length,
+    "computer length",
+    computerDeck.length,
+    "discard length",
+    discardDeck.length,
+    "turn result",
+    turnResult
+  );
 };
 
 const main = () => {
@@ -284,10 +321,7 @@ const main = () => {
   });
   $(".snap-button").on("click", postSnapPlayer);
   $(".start-game-button").on("click", startGame);
-  // perhaps, there should be a resume game button in addition
   $(".pause-game-button").on("click", pauseGame);
-
-  // startGame();
 
   // console.log(playerDeck, computerDeck, discardDeck);
   // console.log(
@@ -299,33 +333,6 @@ const main = () => {
   //   "discard length",
   //   discardDeck.length
   //
-};
-
-const render = () => {
-  // previous card
-  if (turn !== 1) {
-    // to avoid error as previousCard is undefined in turn 1
-    $(".previous-card").text(previousCard.value);
-  }
-  // current card
-  $(".current-card").text(currentCard.value);
-
-  // computerCardCount
-  $(".computer-count").text(computerDeck.length);
-
-  // playerCardCount
-  $(".player-count").text(playerDeck.length);
-
-  // discardPileCount
-  $(".discard-count").text(discardDeck.length);
-
-  // turnResult - correct or wrong snap
-  const clearTurnResult = () => {
-    $(".turn-result-message").text(""); // clear the turnResult HTML (front-end)
-    turnResult = ""; // clear the turnResult variable back to "" (back-end)
-  };
-  $(".turn-result-message").text(turnResult); // display the turnResult immediately
-  setTimeout(clearTurnResult, turnResultDisappearDelay); // clear the turnResult message after some delay;
 };
 
 $(main);

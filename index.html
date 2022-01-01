@@ -39,21 +39,25 @@
     </div>
     <div id="game-screen" class="screen">
       <div class="container">
-        <div class="count card-container computer-deck">
-          Computer's cards: <span class="computer-count">26</span>
+        <div class="card-container computer-deck">
+          Computer's cards:
+          <br />
+          <span class="computer-count count">26</span>
         </div>
         <br />
         <br />
+        <div class="card-container discard-deck">
+          Discard pile:
+          <br />
+          <span class="discard-count count">0</span>
+        </div>
         <div class="previous-card-container card-container">
           <div>Previous card:</div>
-          <div class="previous-card card">Jack of hearts</div>
+          <div class="previous-card active-card">Jack of hearts</div>
         </div>
         <div class="current-card-container card-container">
           <div>Current card:</div>
-          <div class="current-card card">Jack of spade</div>
-        </div>
-        <div class="count card-container discard-deck">
-          Discard pile: <span class="discard-count">0</span>
+          <div class="current-card active-card">Jack of spade</div>
         </div>
         <div class="turn-result-message"></div>
         <div class="buttons-container">
@@ -61,8 +65,10 @@
           <button class="start-game-button button">Start game</button>
           <button class="pause-game-button button">Pause game</button>
         </div>
-        <div class="count card-container player-deck">
-          Player's cards: <span class="player-count">26</span>
+        <div class="card-container player-deck">
+          Player's cards:
+          <br />
+          <span class="player-count count">26</span>
         </div>
       </div>
     </div>

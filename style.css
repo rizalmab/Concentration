@@ -51,6 +51,14 @@ img {
 .discard-deck {
   background-color: lightslategray;
 }
+
+.count {
+  font-size: 40px;
+}
+
+.active-card {
+  font-size: 30px;
+}
 /* can add custom CSS for each specific screen */
 /* #start-screen {
 }

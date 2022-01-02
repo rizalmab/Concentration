@@ -1,12 +1,12 @@
 /*----- constants -----*/
 class Card {
-  constructor(value, suit) {
-    this.value = value;
+  constructor(rank, suit) {
+    this.rank = rank;
     this.suit = suit;
   }
 }
 
-const VALUES = [
+const RANKS = [
   "2",
   "3",
   "4",
@@ -96,7 +96,7 @@ const setupDecks = () => {
   const createDeck = () => {
     const deck = [];
     for (const suit of SUITS) {
-      for (const value of VALUES) {
+      for (const value of RANKS) {
         const card = new Card(value, suit);
         deck.push(card);
       }
@@ -132,7 +132,6 @@ const playGame = () => {
 };
 
 const playTurn = () => {
-  // while (playerCount > 0 && computerCount > 0) {
   turn++;
 
   if (turn === 1) {
@@ -261,14 +260,48 @@ const postSnapPlayer = () => {
   setTimeout(playGame(), resumeGameTime); // resume the game after some time
 };
 
+const returnSuit = (obj) => {
+  if (obj.suit === "♠") {
+    return "spades";
+  } else if (obj.suit === "♥") {
+    return "hearts";
+  } else if (obj.suit === "♦") {
+    return "diams";
+  } else if (obj.suit === "♣") {
+    return "clubs";
+  }
+};
+
+const updateSuitClassPrevious = (elem) => {
+  //! If object in previousCard/currentCard slot has value of [x] , toggleClass so that it contains class of [x]
+  const lastClass = elem.attr("class").split(" ").pop();
+
+  if (turn === 1) {
+    return;
+  } else {
+    elem.removeClass(lastClass);
+    elem.addClass(returnSuit(previousCard));
+  }
+};
+
+const updateSuitClassCurrent = (elem) => {
+  //! If object in previousCard/currentCard slot has value of [x] , toggleClass so that it contains class of [x]
+  const lastClass = elem.attr("class").split(" ").pop();
+
+  elem.removeClass(lastClass);
+  elem.addClass(returnSuit(currentCard));
+};
+
 const render = () => {
   // previous card
   if (turn !== 1) {
     // to avoid error as previousCard is undefined in turn 1
-    $(".previous-card").text(previousCard.value);
+    $(".previous-card-rank").text(previousCard.rank);
+    $(".previous-card-suit").text(previousCard.suit);
   }
   // current card
-  $(".current-card").text(currentCard.value);
+  $(".current-card-rank").text(currentCard.rank);
+  $(".current-card-suit").text(currentCard.suit);
 
   // computerCardCount
   $(".computer-count").text(computerDeck.length);
@@ -287,6 +320,9 @@ const render = () => {
   $(".turn-result-message").text(turnResult); // display the turnResult (global) immediately
   setTimeout(clearTurnResult, turnResultDisappearDelay); // clear the turnResult message after some delay;
 
+  updateSuitClassPrevious($("#previous-card-container"));
+  updateSuitClassCurrent($("#current-card-container"));
+
   // To check turn number, previousCard, currentCard, length of different decks, turnResult
   console.log("Turn", turn); // check turn number
   console.log("prev", previousCard, "current", currentCard); // check previous and current card
@@ -301,7 +337,11 @@ const render = () => {
     "total cards in-game",
     playerDeck.length + computerDeck.length + discardDeck.length + 2, // 2 is for previous and current cards
     "turn result",
-    turnResult
+    turnResult,
+    "prevCard classList",
+    $("#previous-card-container").attr("class").split(/\s+/),
+    "currentCard classList",
+    $("#current-card-container").attr("class").split(/\s+/)
   );
 };
 

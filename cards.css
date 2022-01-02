@@ -77,28 +77,28 @@
 .playingCards .card.diams {
   color: #f00 !important;
 }
-.playingCards.fourColours .card.diams {
+.playingCards .card.hearts {
+    color: #f00 !important;
+}
+.playingCards .card.spades {
+    color: #000 !important;
+}
+.playingCards .card.clubs {
+    color: #000 !important;
+}
+/* .playingCards.fourColours .card.diams {
   color: #00f !important;
 }
 [lang="de"] .playingCards.fourColours .card.diams {
   color: #f60 !important;
-}
-.playingCards .card.hearts {
-  color: #f00 !important;
-}
-.playingCards .card.spades {
-  color: #000 !important;
-}
-[lang="de"] .playingCards.fourColours .card.spades {
+} */
+/* [lang="de"] .playingCards.fourColours .card.spades {
   color: #090 !important;
-}
-.playingCards .card.clubs {
-  color: #000 !important;
-}
-.playingCards.fourColours .card.clubs {
+} */
+/* .playingCards.fourColours .card.clubs {
   color: #090 !important;
-}
-[lang="de"] .playingCards.fourColours .card.clubs {
+} */
+/* [lang="de"] .playingCards.fourColours .card.clubs {
   color: #000 !important;
 }
 .playingCards .card.joker {
@@ -106,7 +106,7 @@
 }
 .playingCards .card.joker.big {
   color: #f00 !important;
-}
+} */
 
 /* inner bits
 ********************************************************************/

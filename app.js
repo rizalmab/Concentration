@@ -299,7 +299,7 @@ const render = () => {
     "discard length",
     discardDeck.length,
     "total cards in-game",
-    playerDeck.length + computerDeck.length + discardDeck.length + 2,
+    playerDeck.length + computerDeck.length + discardDeck.length + 2, // 2 is for previous and current cards
     "turn result",
     turnResult
   );
@@ -326,17 +326,6 @@ const main = () => {
   $(".snap-button").on("click", postSnapPlayer);
   $(".start-game-button").on("click", startGame);
   $(".pause-game-button").on("click", pauseGame);
-
-  // console.log(playerDeck, computerDeck, discardDeck);
-  // console.log(
-  //   // check remaining deck length
-  //   "player length",
-  //   playerDeck.length,
-  //   "computer length",
-  //   computerDeck.length,
-  //   "discard length",
-  //   discardDeck.length
-  //
 };
 
 $(main);

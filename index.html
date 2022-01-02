@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="cards.css" />
     <link rel="stylesheet" href="style.css" />
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -37,7 +38,7 @@
         <button id="rules-back-button">Back</button>
       </div>
     </div>
-    <div id="game-screen" class="screen">
+    <div id="game-screen" class="screen playingCards simpleCards">
       <div class="container">
         <div class="card-container computer-deck">
           Computer's cards:
@@ -51,13 +52,13 @@
           <br />
           <span class="discard-count count">0</span>
         </div>
-        <div class="previous-card-container card-container">
-          <div>Previous card:</div>
-          <div class="previous-card active-card"></div>
+        <div class="card rank-7 spades">
+          <span class="rank">7</span>
+          <span class="suit">&spades;</span>
         </div>
-        <div class="current-card-container card-container">
-          <div>Current card:</div>
-          <div class="current-card active-card"></div>
+        <div class="card rank-7 hearts">
+          <span class="rank">J</span>
+          <span class="suit">&hearts;</span>
         </div>
         <div class="turn-result-message"></div>
         <div class="buttons-container">

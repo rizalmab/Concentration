@@ -36,7 +36,7 @@ let previousCard, currentCard;
 const turnResultDisappearDelay = 1000; // used in render function
 const playTurnTime = 1500; // used in playGame function
 const resumeGameTime = 2000; // used in postSnapCom and postSnapPlayer functions
-const computerSnapTime = 1200; // used in playTurn
+const computerSnapTime = 1400; // used in playTurn
 
 // other variables
 let turn = 0;
@@ -157,18 +157,18 @@ const playTurn = () => {
   }
 
   // give % chance for computer to snap (ie. run postSnap function)
-  if (checkConditions()) {
+  if (checkConditions() && game.snap !== "player") {
     // console.log("conditions are met");
 
-    // computer will snap in 0.9 seconds (ie. run postSnap function)
-    setTimeout(postSnapCom(), computerSnapTime);
+    // computer will snap in certain amount of time (ie. run postSnap function)
+    setTimeout(postSnapCom, computerSnapTime);
   } else {
     // computer will not snap
     // console.log("conditions not met");
   }
 
+  game.snap = null;
   postWin();
-
   render();
 };
 
@@ -230,7 +230,11 @@ const addDiscardDeckTo = (deck) => {
 
 const postSnapCom = () => {
   // console.log("snap pressed");
+
+  game.snap = "computer"; // assign snap to "computer"
+
   updateTurnResult("Computer"); // show whether player/com snapped correctly
+  $(".turn-result-message").text(turnResult);
 
   // based on whether snap was correct or not, add discard deck to user's deck
   if (checkConditions()) {
@@ -248,7 +252,12 @@ const postSnapCom = () => {
 
 const postSnapPlayer = () => {
   // console.log("snap pressed");
+
+  game.snap = "player"; // assign snap to "player"
+
   updateTurnResult("Player"); // show whether player/com snapped correctly
+
+  $(".turn-result-message").text(turnResult); // display the turnResult (global) immediately
 
   // based on whether snap was correct or not, add discard deck to user's deck
   if (checkConditions()) {
@@ -306,6 +315,7 @@ const postWin = () => {
     $("#post-game-result-message").text(
       "You lost to the computer. Better luck next time!"
     );
+    // stop loop. Ie. stop interval
     pauseGame();
   } else if (playerDeck.length === 0) {
     // Hide the game screen
@@ -314,9 +324,10 @@ const postWin = () => {
     // Display the post game screen with the text message
     $("#post-game-screen").css("display", "block");
     $("#post-game-result-message").text("You won! Congratulations!");
+
+    // stop loop. Ie. stop interval
     pauseGame();
   }
-  // stop loop. Ie. stop interval
 };
 
 const render = () => {
@@ -344,7 +355,7 @@ const render = () => {
     $(".turn-result-message").text(""); // clear the turnResult innerHTML (front-end)
     turnResult = ""; // clear the turnResult variable back to "" (back-end)
   };
-  $(".turn-result-message").text(turnResult); // display the turnResult (global) immediately
+  // $(".turn-result-message").text(turnResult); // display the turnResult (global) immediately
   setTimeout(clearTurnResult, turnResultDisappearDelay); // clear the turnResult message after some delay;
 
   updateSuitClassPrevious($("#previous-card-container"));

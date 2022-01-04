@@ -16,7 +16,8 @@ img {
 /* hide other screens when app first starts */
 #rules-screen,
 #start-screen,
-#input-screen {
+#input-screen,
+#post-game-screen {
   display: none;
 }
 

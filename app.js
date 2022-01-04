@@ -72,6 +72,7 @@ const computer1 = {
 /*----- functions -----*/
 
 const shuffleDeck = (array) => {
+  //* This code was copied from: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
   let currentIndex = array.length;
   let randomIndex;
 
@@ -166,6 +167,8 @@ const playTurn = () => {
     // console.log("conditions not met");
   }
 
+  postWin();
+
   render();
 };
 
@@ -187,7 +190,7 @@ const checkConditions = () => {
   // } else {
   //   console.log("condition NOT met");
   // }
-  if (previousCard.value === currentCard.value) {
+  if (previousCard.rank === currentCard.rank) {
     return true;
   } else {
     return false;
@@ -273,7 +276,7 @@ const returnSuit = (obj) => {
 };
 
 const updateSuitClassPrevious = (elem) => {
-  //! If object in previousCard/currentCard slot has value of [x] , toggleClass so that it contains class of [x]
+  // If object in previousCard/currentCard slot has value of [x] , toggleClass so that it contains class of [x]
   const lastClass = elem.attr("class").split(" ").pop();
 
   if (turn === 1) {
@@ -285,11 +288,35 @@ const updateSuitClassPrevious = (elem) => {
 };
 
 const updateSuitClassCurrent = (elem) => {
-  //! If object in previousCard/currentCard slot has value of [x] , toggleClass so that it contains class of [x]
+  // If object in previousCard/currentCard slot has value of [x] , toggleClass so that it contains class of [x]
   const lastClass = elem.attr("class").split(" ").pop();
 
   elem.removeClass(lastClass);
   elem.addClass(returnSuit(currentCard));
+};
+
+const postWin = () => {
+  // when length is 0
+  if (computerDeck.length === 0) {
+    // // Hide the game screen
+    $("#game-screen").css("display", "none");
+
+    // Display the post game screen with the text message
+    $("#post-game-screen").css("display", "block");
+    $("#post-game-result-message").text(
+      "You lost to the computer. Better luck next time!"
+    );
+    pauseGame();
+  } else if (playerDeck.length === 0) {
+    // Hide the game screen
+    $("#game-screen").css("display", "none");
+
+    // Display the post game screen with the text message
+    $("#post-game-screen").css("display", "block");
+    $("#post-game-result-message").text("You won! Congratulations!");
+    pauseGame();
+  }
+  // stop loop. Ie. stop interval
 };
 
 const render = () => {

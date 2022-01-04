@@ -41,6 +41,11 @@ img {
   font-size: 30px;
 }
 
+.mid-cards {
+  display: inline-block;
+  width: 100px;
+}
+
 /* can add custom CSS for each specific screen */
 /* #start-screen {
 }

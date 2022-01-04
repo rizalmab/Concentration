@@ -40,37 +40,47 @@
     </div>
     <div id="game-screen" class="screen playingCards simpleCards">
       <div class="container">
-        <div class="card-container computer-deck card back">
-          Computer's cards:
-          <br />
-          <span class="computer-count count">26</span>
+        <div>
+          <div class="caption">Computer's deck</div>
+          <div class="card-container computer-deck card back">
+            Computer's cards:
+            <br />
+            <span class="computer-count count">26</span>
+          </div>
         </div>
         <br />
         <br />
-        <div class="card-container discard-deck card back">
-          Discard pile:
-          <br />
-          <span class="discard-count count">0</span>
+        <div>
+          <div class="caption">Discard deck
+          </div>
+          <div class="card-container discard-deck card back">
+            Discard pile:
+            <br />
+            <span class="discard-count count">0</span>
+          </div>
         </div>
         <div class="card placeholder-suit" id="previous-card-container">
           <span class="rank previous-card-rank"></span>
           <span class="suit previous-card-suit"></span>
-          <!-- <span class="suit previous-card-suit-middle">&spades;</span> -->
         </div>
         <div class="card placeholder-suit" id="current-card-container">
           <span class="rank current-card-rank"></span>
           <span class="suit current-card-suit"></span>
         </div>
-        <div class="turn-result-message">testing</div>
+        <div class="turn-result-message"></div>
         <div class="buttons-container">
           <button class="snap-button button">SNAP</button> <br />
           <button class="start-game-button button">Start game</button>
           <button class="pause-game-button button">Pause game</button>
         </div>
-        <div class="card-container player-deck card back">
-          Player's cards:
-          <br />
-          <span class="player-count count">26</span>
+        <div>
+        </br>
+          <div class="caption">Player's deck</div>
+          <div class="card-container player-deck card back">
+            Player's cards:
+            <br />
+            <span class="player-count count">26</span>
+          </div>
         </div>
       </div>
     </div>

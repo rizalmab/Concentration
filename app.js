@@ -47,24 +47,7 @@ const game = {
   turn: null, // whose turn is it
   winner: null, // who is the winner
   snap: null, // who snapped?
-};
-
-const player1 = {
-  name: "Player 1",
-  snapStatus: false,
-  turnWinStatus: false,
-  overallWinStatus: false,
-  turn: false,
-  deck: null,
-};
-
-const computer1 = {
-  name: "Computer",
-  snapStatus: false,
-  turnWinStatus: false,
-  overallWinStatus: false,
-  turn: false,
-  deck: null,
+  playerName: null, // from the input box
 };
 
 /*----- cached element references -----*/
@@ -400,6 +383,12 @@ const main = () => {
   $("#go-button").on("click", () => {
     $(".screen").hide();
     $("#game-screen").show();
+    game.playerName = $("#input-name").val(); // save the input into a variable
+    $("#player-name").text(game.playerName);
+  });
+  $("#back-to-start-button").on("click", () => {
+    $(".screen").hide();
+    $("#start-screen").show();
   });
   $(".snap-button").on("click", postSnapPlayer);
   $(".start-game-button").on("click", startGame);

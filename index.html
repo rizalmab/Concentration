@@ -27,14 +27,16 @@
       </div>
     </div>
     <div id="input-screen" class="screen">
-      <h3>Input your name</h3>
+      <h3>Input your name:</h3>
       <input id="input-name" placeholder="Type your name here" /><br />
       <button id="go-button">Go!</button>
+    </br>
+      <button id="back-to-start-button">Back</button>
     </div>
     <div id="rules-screen" class="screen">
       <div id="rules-container">
         <h3>Rules of the game</h3>
-        <p id="rules">Insert rules here</p>
+        <p id="rules">The player and computer are given the same number of cards, and take turns putting down one card. When the previous and current cards are of the same rank (eg. two ‘Queens’), press the ‘SNAP’ button. The cards in the discard pile will be added to the deck of the slower player to snap. The winner is the one who finishes all his cards first.</p>
         <button id="rules-back-button">Back</button>
       </div>
     </div>
@@ -81,7 +83,7 @@
         </div>
         <div>
         </br>
-          <div class="caption">Player's deck</div>
+          <div class="caption"><span id="player-name">Player</span>'s deck</div>
           <div class="card-container player-deck card back">
             Player's cards:
             <br />

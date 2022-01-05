@@ -9,16 +9,26 @@ img {
 }
 
 /* show #screen1 when app first starts */
-#game-screen {
+#start-screen {
+/* #input-screen {
+#rules-screen { */
+/* #game-screen { */
   display: block;
 }
 
 /* hide other screens when app first starts */
+#game-screen,
 #rules-screen,
-#start-screen,
 #input-screen,
+/* #start-screen, */
 #post-game-screen {
   display: none;
+}
+
+.screen {
+  text-align: center;
+  width: 60%;
+  margin: 0 auto;
 }
 
 /* .card {

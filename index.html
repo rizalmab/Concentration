@@ -23,26 +23,45 @@
       />
       <div id="button-container">
         <button id="start-button">Start game</button><br />
-        <button id="rules-button">Rules</button>
       </div>
     </div>
     <div id="input-screen" class="screen">
-      <h3>Input your name:</h3>
-      <input id="input-name" placeholder="Type your name here" /><br />
-      <button id="go-button">Go!</button>
-    </br>
-      <button id="back-to-start-button">Back</button>
-    </div>
-    <div id="rules-screen" class="screen">
-      <div id="rules-container">
-        <h3>Rules of the game</h3>
-          <p>A deck of 52 cards is split equally between the player and computer. You and the computer will take turns putting down one card. </p>
-          <p>When the previous and current cards are of the same rank (eg. two ‘Queens’), press the ‘SNAP’ button faster than the computer. </p>
-          <p>If you ‘snap’ correctly, the discard pile will be added to the computer’s deck.</p>
-          <p>If you ‘snap’ wrongly or ‘snap’ slower than the computer, the discard pile will be added to your deck.</p>
-          <p>The cards in the discard pile will be added to the deck of the slower player to snap. The winner is the one who finishes all his cards first.</p>
-        <button id="rules-back-button">Back</button>
-      </div>
+      <section class="rules">
+        <div id="rules-container">
+          <h3>Rules of the game</h3>
+            <p>A deck of 52 cards is split equally between the player and computer. You and the computer will take turns putting down one card. The next turn, the current card (of the previous turn) will move into the previous card slot, and the previous card will move into the discard pile. </p>
+            <p>When the previous and current cards meet a certain condition(s), press the ‘SNAP’ button faster than the computer. </p>
+            <h4>Conditions to press the SNAP button</h4>
+            <p>Level 1:</p>
+            <ul>
+              <li>Two cards of the same rank/value (eg. Q♠ & Q♦)</li>
+            </ul>
+            <p>Level 2:</p>
+            <ul>
+              <li>Two cards of the same rank/value (eg. Q♠ & Q♦) OR </li>
+              <li>Two cards of the same suit (eg. 4♥ & J♥)</li>
+            </ul>
+            <p>If you ‘snap’ correctly, the discard pile will be added to the computer’s deck.</p>
+            <p>If you ‘snap’ wrongly or ‘snap’ slower than the computer, the discard pile will be added to your deck.</p>
+            <h4>How to win</h4>
+            <p>The winner is the one who finishes all his cards first.</p>
+        </div>
+      </section>
+      <section class="input">
+        <h3>Input your name:</h3>
+        <input id="input-name" placeholder="Type your name here" /><br />
+        <h3 class="level">Choose your level:</h3>
+        <select name="level" id="select-level">
+          <option value="level-1">Level 1</option>
+          <option value="level-2">Level 2</option>
+        </select>
+        <br>
+        <br>
+        <button id="go-button">Go!</button>
+      </br>
+      </br>
+        <button id="back-to-start-button">Back</button>
+      </section>
     </div>
     <div id="game-screen" class="screen playingCards simpleCards">
       <div class="container">

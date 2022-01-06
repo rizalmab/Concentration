@@ -376,10 +376,6 @@ const main = () => {
     $(".screen").hide();
     $("#rules-screen").show();
   });
-  $("#rules-back-button").on("click", () => {
-    $(".screen").hide();
-    $("#start-screen").show();
-  });
   $("#go-button").on("click", () => {
     $(".screen").hide();
     $("#game-screen").show();

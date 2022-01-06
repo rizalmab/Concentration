@@ -10,24 +10,27 @@ img {
 
 /* show #screen1 when app first starts */
 /* #start-screen { */
-/* #input-screen { */
-/* #rules-screen {  */
-#game-screen {
+#input-screen {
+/* #game-screen { */
   display: block;
 }
 
 /* hide other screens when app first starts */
-/* #game-screen, */
-#rules-screen,
-#input-screen,
+#game-screen,
+/* #input-screen, */
 #start-screen,
 #post-game-screen {
   display: none;
 }
 
+#input-screen > * {
+  vertical-align: top;
+  text-align: center;
+}
+
 .screen {
   text-align: center;
-  width: 60%;
+  /* width: 60%; */
   margin: 0 auto;
 }
 
@@ -54,6 +57,17 @@ img {
 .mid-cards {
   display: inline-block;
   width: 100px;
+}
+
+.rules, .input {
+  display: inline-block;
+  width: 40%;
+  margin: 0 auto;
+}
+
+.rules > * {
+  border: 1px solid;
+  text-align: left;
 }
 
 /* can add custom CSS for each specific screen */

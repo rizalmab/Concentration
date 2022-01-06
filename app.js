@@ -33,17 +33,17 @@ let discardDeck = [];
 let previousCard, currentCard;
 
 // time-related variables
-const turnResultDisappearDelay = 1000; // used in render function
+const turnResultDisappearDelay = 500; // used in render function
+const computerSnapTime = 1400; // used in playTurn
 const playTurnTime = 1500; // used in playGame function
 const resumeGameTime = 2000; // used in postSnapCom and postSnapPlayer functions
-const computerSnapTime = 1400; // used in playTurn
 
 // other variables
 let turn = 0;
 let turnResult;
 let playTurnInterval;
 
-const game = {
+let game = {
   turn: null, // whose turn is it
   winner: null, // who is the winner
   snap: null, // who snapped?
@@ -226,6 +226,10 @@ const addDiscardDeckTo = (deck) => {
 const postSnapCom = () => {
   // console.log("snap pressed");
 
+  if (game.snap === "player") {
+    return;
+  }
+
   game.snap = "computer"; // assign snap to "computer"
 
   updateTurnResult("Computer"); // show whether player/com snapped correctly
@@ -325,6 +329,41 @@ const postWin = () => {
   }
 };
 
+const resetGame = () => {
+  playerDeck = [];
+  computerDeck = [];
+  previousCard = null;
+  currentCard = null;
+  turn = 0;
+  game = {
+    turn: null, // whose turn is it
+    winner: null, // who is the winner
+    snap: null, // who snapped?
+    playerName: null, // from the input box
+    level: 1,
+  };
+  $(".computer-count").text(26);
+  $(".player-count").text(26);
+  $(".discard-count").text(0);
+  $(".previous-card-rank").text("");
+  $(".previous-card-suit").text("");
+  $(".current-card-rank").text("");
+  $(".current-card-suit").text("");
+  const lastClassPrev = $("#previous-card-container")
+    .attr("class")
+    .split(" ")
+    .pop();
+  $("#previous-card-container").removeClass(lastClassPrev);
+  $("#previous-card-container").addClass("placeholder-suit");
+  const lastClassCurr = $("#current-card-container")
+    .attr("class")
+    .split(" ")
+    .pop();
+  $("#current-card-container").removeClass(lastClassCurr);
+  $("#current-card-container").addClass("placeholder-suit");
+  $(".turn-result-message").text("");
+};
+
 const render = () => {
   // previous card
   if (turn !== 1) {
@@ -394,6 +433,7 @@ const main = () => {
     game.playerName = $("#input-name").val(); // save the name input into a variable
     $("#player-name").text(game.playerName);
     game.level = $("#select-level").val(); // save the level input into a variable
+    render();
   });
   $("#back-to-start-button").on("click", () => {
     $(".screen").hide();
@@ -402,6 +442,11 @@ const main = () => {
   $(".snap-button").on("click", postSnapPlayer);
   $(".start-game-button").on("click", startGame);
   $(".pause-game-button").on("click", pauseGame);
+  $(".restart-game-button").on("click", () => {
+    $(".screen").hide();
+    $("#input-screen").show();
+    resetGame();
+  });
 };
 
 $(main);

@@ -48,6 +48,7 @@ const game = {
   winner: null, // who is the winner
   snap: null, // who snapped?
   playerName: null, // from the input box
+  level: 1,
 };
 
 /*----- cached element references -----*/
@@ -173,10 +174,21 @@ const checkConditions = () => {
   // } else {
   //   console.log("condition NOT met");
   // }
-  if (previousCard.rank === currentCard.rank) {
-    return true;
-  } else {
-    return false;
+  if (game.level === "1") {
+    if (previousCard.rank === currentCard.rank) {
+      return true;
+    } else {
+      return false;
+    }
+  } else if (game.level === "2") {
+    if (
+      previousCard.rank === currentCard.rank ||
+      previousCard.suit === currentCard.suit
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   }
 };
 
@@ -379,8 +391,9 @@ const main = () => {
   $("#go-button").on("click", () => {
     $(".screen").hide();
     $("#game-screen").show();
-    game.playerName = $("#input-name").val(); // save the input into a variable
+    game.playerName = $("#input-name").val(); // save the name input into a variable
     $("#player-name").text(game.playerName);
+    game.level = $("#select-level").val(); // save the level input into a variable
   });
   $("#back-to-start-button").on("click", () => {
     $(".screen").hide();

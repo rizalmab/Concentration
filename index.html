@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;1,700&family=Montserrat:wght@500;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="cards.css" />
     <link rel="stylesheet" href="style.css" />
     <script
@@ -18,7 +21,7 @@
     <h1>Concentration</h1>
     <div id="start-screen" class="screen">
       <img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzVHNU5qz-XpFQ8uEv2FvIBTSaxJ9rw_P9IURuTIKAEZ2rFpE&s"
+        src="images/aces.png"
         alt="picture of poker cards"
       />
       <div id="button-container">
@@ -100,7 +103,7 @@
         </div>
         <div class="turn-result-message"></div>
         <div class="buttons-container">
-          <button class="snap-button button">SNAP</button> <br />
+          <button class="snap-button button" role="button">SNAP</button> <br />
           <button class="start-game-button button">Start game</button>
           <button class="pause-game-button button">Pause game</button>
         </div>
@@ -118,8 +121,8 @@
     <div id="post-game-screen" class="screen">
       <div id="post-game-result-container">
         <h1 id="post-game-result-message"></h1>
-        <button class="restart-game-button">Restart game</button>
       </div>
+      <button class="restart-game-button">Restart game</button>
     </div>
   </body>
 </html>

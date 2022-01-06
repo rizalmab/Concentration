@@ -1,18 +1,28 @@
+body {
+  background-color: #7cd1b8;
+}
+
 h1 {
-  margin: 0 auto;
+  margin: 20px auto;
+  margin-bottom: 0px;
   text-align: center;
+  font-family: Montserrat;
+  font-size: 50px;
+  font-style: oblique;
+  color: #3e8e7e;
 }
 
 img {
   height: 300px;
   width: 300px;
+  margin: 50px;
 }
 
 /* show #screen1 when app first starts */
 #start-screen {
-/* #input-screen { */
-/* #game-screen { */
-/* #post-game-screen { */
+  /* #input-screen { */
+  /* #game-screen { */
+  /* #post-game-screen { */
   display: block;
 }
 
@@ -40,7 +50,14 @@ img {
 } */
 
 .turn-result-message {
-  color: green;
+  color: black;
+  font-size: large;
+  display: block;
+  height: 50px;
+  font-family: Montserrat;
+  font-weight: 800;
+  text-align: center;
+  line-height: 50px;
 }
 
 .container {
@@ -60,7 +77,8 @@ img {
   width: 100px;
 }
 
-.rules, .input {
+.rules,
+.input {
   display: inline-block;
   width: 40%;
   margin: 0 auto;
@@ -69,6 +87,80 @@ img {
 .rules > * {
   border: 1px solid;
   text-align: left;
+}
+
+#rules-container,
+.input,
+div {
+  font-family: Merriweather, sans-serif;
+}
+
+#rules-container {
+  padding: 10px;
+  background-color: #faedc6;
+}
+
+.input {
+  padding: 10px;
+  padding-bottom: 30px;
+  background-color: #fabb51;
+  border: 1px solid;
+}
+
+h3,
+h4 {
+  font-family: Montserrat, sans-serif;
+}
+
+button {
+  box-sizing: border-box;
+  border: none;
+  background-color: transparent;
+  font-family: inherit;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #3e8e7e;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
+  padding: 0.25em 0.75em;
+  min-width: 10ch;
+  min-height: 44px;
+  text-align: center;
+  line-height: 1.1;
+  margin: 5px;
+}
+
+button:hover {
+  transform: perspective(10px) translateZ(0);
+  box-shadow: 0 0 10px rgb(0 0 0 / 0%);
+  transition-duration: 0.3s;
+  transition-property: transform;
+}
+
+.snap-button {
+  background-color: #fabb51;
+  color: black;
+}
+
+#post-game-result-container {
+  margin: 30px 20px;
+  color: black;
+}
+
+#post-game-result-message {
+  color: black;
+}
+
+.count {
+  font-family: Montserrat;
+}
+
+#game-screen {
+  padding-top: 30px;
 }
 
 /* can add custom CSS for each specific screen */

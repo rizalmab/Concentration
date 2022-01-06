@@ -142,13 +142,10 @@ const playTurn = () => {
 
   // give % chance for computer to snap (ie. run postSnap function)
   if (checkConditions() && game.snap !== "player") {
-    // console.log("conditions are met");
-
     // computer will snap in certain amount of time (ie. run postSnap function)
     setTimeout(postSnapCom, computerSnapTime);
   } else {
     // computer will not snap
-    // console.log("conditions not met");
   }
 
   game.snap = null;
@@ -162,18 +159,11 @@ const pauseGame = () => {
 };
 
 const checkConditions = () => {
-  // console.log("check conditions ran");
-
   // stops function from returning error during first turn as previous card is undefined
   if (typeof previousCard === "undefined") {
     return;
   }
   // check if condition is met
-  // if (previousCard.value === currentCard.value) {
-  //   console.log("condition met");
-  // } else {
-  //   console.log("condition NOT met");
-  // }
   if (game.level === "1") {
     if (previousCard.rank === currentCard.rank) {
       return true;
@@ -193,14 +183,11 @@ const checkConditions = () => {
 };
 
 const updateTurnResult = (user) => {
-  // console.log("showResult function ran");
-  // if (previousCard.value === currentCard.value) {
-
   // to stop function from returning error during first turn when previousCard is undefined
   if (typeof previousCard === "undefined") {
     return;
   }
-  // print message based on conditions
+  // print turn result based on conditions
   if (checkConditions()) {
     turnResult = `${user} snapped correctly! :)`;
     // console.log(turnResult);
@@ -212,20 +199,14 @@ const updateTurnResult = (user) => {
 };
 
 const addDiscardDeckTo = (deck) => {
-  // console.log("clearDiscardDeck function called");
-
   // push all cards in discardDeck into loser's deck
   deck.push(...discardDeck);
 
   // clear discardDeck array back to zero elements
   discardDeck = [];
-
-  console.log("loser's deck", deck, discardDeck);
 };
 
 const postSnapCom = () => {
-  // console.log("snap pressed");
-
   if (game.snap === "player") {
     return;
   }
@@ -250,8 +231,6 @@ const postSnapCom = () => {
 };
 
 const postSnapPlayer = () => {
-  // console.log("snap pressed");
-
   game.snap = "player"; // assign snap to "player"
 
   updateTurnResult("Player"); // show whether player/com snapped correctly
@@ -272,6 +251,7 @@ const postSnapPlayer = () => {
 };
 
 const returnSuit = (obj) => {
+  // this function will be used to update the class of the previous and current card for CSS styling
   if (obj.suit === "♠") {
     return "spades";
   } else if (obj.suit === "♥") {
@@ -306,7 +286,7 @@ const updateSuitClassCurrent = (elem) => {
 const postWin = () => {
   // when length is 0
   if (computerDeck.length === 0) {
-    // // Hide the game screen
+    // Hide the game screen
     $("#game-screen").css("display", "none");
 
     // Display the post game screen with the text message
@@ -349,19 +329,21 @@ const resetGame = () => {
   $(".previous-card-suit").text("");
   $(".current-card-rank").text("");
   $(".current-card-suit").text("");
+  $(".turn-result-message").text("");
+  // reset the previous card to a blank card
   const lastClassPrev = $("#previous-card-container")
     .attr("class")
     .split(" ")
     .pop();
   $("#previous-card-container").removeClass(lastClassPrev);
   $("#previous-card-container").addClass("placeholder-suit");
+  // reset the current card to a blank card
   const lastClassCurr = $("#current-card-container")
     .attr("class")
     .split(" ")
     .pop();
   $("#current-card-container").removeClass(lastClassCurr);
   $("#current-card-container").addClass("placeholder-suit");
-  $(".turn-result-message").text("");
 };
 
 const render = () => {
